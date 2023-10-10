@@ -72,16 +72,40 @@ self.addEventListener('fetch',e=>{
 //para rendimiento critico, si el rendimiento es bajo.
 //Toda la aplicacion mesta un paso atras.
 //Siempre devuelve desde cache lo antiguo
-if(e.request.url.includes('bootstrap')){
-    return e.respondWith(caches.match(e.request));
-    const source = caches.open(STATIC).then(cache=>{
-        fetch(e.request).then(res=>{
-            cache.put(e.request,res);
-        });
-        return cache.match(e.request);
-    });
-    e.respondWith(source);
-}
+// if(e.request.url.includes('bootstrap')){
+//     return e.respondWith(caches.match(e.request));
+//     const source = caches.open(STATIC).then(cache=>{
+//         fetch(e.request).then(res=>{
+//             cache.put(e.request,res);
+//         });
+//         return cache.match(e.request);
+//     });
+//     e.respondWith(source);
+// }
+
+
+//5.Cache and network race
+const source = new Promise((resolve,reject)=>{
+    let rejected = false;
+    const failsOnce = () =>{
+        if(reject){
+              if(/\.(png|jpg)/i.test(e.request.url)){
+                resolve(caches.match('/img/not-found.png'));
+              }else{
+                  throw Error("SourceNotFound")  ;
+              }  
+        }else{
+            rejected = true;
+        };
+    };
+    fetch(e.request).then(res=>{
+        res.ok ? resolve(res) : failsOnce();
+    }).catch(failsOnce);
+    caches.match(e.request).then(cacheRes=>{
+        cacheRes.ok ? resolve(cacheRes) : failsOnce();
+    }).catch(failsOnce);
+})
+e.respondWith(source)
 });
 
 self.addEventListener('push',e=>{
