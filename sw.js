@@ -12,7 +12,8 @@ const DYNAMIC_LIMIT = 30;
     '/index.html',
     'css/styles.css', 
     'img/fondo.jpg',
-    'js/app.js'
+    'js/app.js',
+    'pages/offline.html'
 ];
 //Todos aquellos recursos que nunca cambian
 const APP_SHELL_INMUTABLE = [
@@ -72,8 +73,8 @@ self.addEventListener('fetch',e=>{
 //para rendimiento critico, si el rendimiento es bajo.
 //Toda la aplicacion mesta un paso atras.
 //Siempre devuelve desde cache lo antiguo
-// if(e.request.url.includes('bootstrap')){
-//     return e.respondWith(caches.match(e.request));
+// if(e.request.url.includes('pages/page2.html')){
+//     return e.respondWith(caches.match('pages/offline.html'));
 //     const source = caches.open(STATIC).then(cache=>{
 //         fetch(e.request).then(res=>{
 //             cache.put(e.request,res);
@@ -87,10 +88,11 @@ self.addEventListener('fetch',e=>{
 //5.Cache and network race
 const source = new Promise((resolve,reject)=>{
     let rejected = false;
-    const failsOnce = () =>{
-        if(reject){
-              if(/\.(png|jpg)/i.test(e.request.url)){
-                resolve(caches.match('/img/not-found.png'));
+    const failsOnce = () =>{þ
+        console.log(reject)
+        if(rejected){
+              if(e.request.url.includes('pages/page2.html')){
+                resolve(caches.match('/pages/offline.html'));
               }else{
                   throw Error("SourceNotFound")  ;
               }  
