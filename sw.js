@@ -88,14 +88,16 @@ self.addEventListener('fetch',e=>{
 //5.Cache and network race
 const source = new Promise((resolve,reject)=>{
     let rejected = false;
-    const failsOnce = () =>{þ
+    const failsOnce = () =>{
         console.log(reject)
         if(rejected){
+            if(/\.(png|jpg)/i.test(e.request.url)){
+                resolve(caches.match('/img/not-found.png'));
+            }
               if(e.request.url.includes('pages/page2.html')){
-                resolve(caches.match('/pages/offline.html'));
-              }else{
-                  throw Error("SourceNotFound")  ;
+                resolve(caches.match('pages/offline.html'));
               }  
+
         }else{
             rejected = true;
         };
