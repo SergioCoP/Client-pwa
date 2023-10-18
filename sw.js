@@ -8,12 +8,12 @@ const DYNAMIC_LIMIT = 30;
 
   //Todos los recursos propios de la aplicacion
   const APP_SHELL = [
-    './',
-    './index.html',
-    './css/styles.css', 
-    './img/fondo.jpg',
-    './js/app.js',
-    './pages/offline.html'
+    '/',
+    'index.html',
+    'css/styles.css', 
+    'img/fondo.jpg',
+    'js/app.js',
+    'pages/offline.html'
 ];
 //Todos aquellos recursos que nunca cambian
 const APP_SHELL_INMUTABLE = [

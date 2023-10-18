@@ -2,7 +2,7 @@
     "theme_color": "#7ed321",
     "background_color": "#4a4a4a",
     "display": "standalone",
-    "scope": "./",
+    "scope": "/",
     "start_url": "./",
     "name": "Reports PWA",
     "short_name": "rpwa",
