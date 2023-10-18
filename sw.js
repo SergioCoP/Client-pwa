@@ -9,11 +9,11 @@ const DYNAMIC_LIMIT = 30;
   //Todos los recursos propios de la aplicacion
   const APP_SHELL = [
     '/',
-    '/index.html',
-    'css/styles.css', 
-    'img/fondo.jpg',
-    'js/app.js',
-    'pages/offline.html'
+    './index.html',
+    './css/styles.css', 
+    './img/fondo.jpg',
+    './js/app.js',
+    './pages/offline.html'
 ];
 //Todos aquellos recursos que nunca cambian
 const APP_SHELL_INMUTABLE = [
@@ -94,8 +94,8 @@ const source = new Promise((resolve,reject)=>{
             if(/\.(png|jpg)/i.test(e.request.url)){
                 resolve(caches.match('/img/not-found.png'));
             }
-              if(e.request.url.includes('pages/page2.html')){
-                resolve(caches.match('pages/offline.html'));
+              if(e.request.url.includes('page2.html')){
+                resolve(caches.match('./pages/offline.html'));
               }  
 
         }else{
