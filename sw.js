@@ -8,7 +8,7 @@ const DYNAMIC_LIMIT = 30;
 
   //Todos los recursos propios de la aplicacion
   const APP_SHELL = [
-    '/',
+    './',
     './index.html',
     './css/styles.css', 
     './img/fondo.jpg',
