@@ -92,7 +92,7 @@ const source = new Promise((resolve,reject)=>{
         console.log(reject)
         if(rejected){
             if(/\.(png|jpg)/i.test(e.request.url)){
-                resolve(caches.match('.//img/not-found.png'));
+                resolve(caches.match('./img/not-found.png'));
             }
               if(e.request.url.includes('page2.html')){
                 resolve(caches.match('./pages/offline.html'));
